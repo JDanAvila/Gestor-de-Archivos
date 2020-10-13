@@ -103,13 +103,14 @@ public class IniciarSesionJPanel extends javax.swing.JPanel {
         String pass = new String (clave);
         String user = jTextField_Usuario.getText();
         if(udao.validar(user, pass)){
-            if(udao.validar2() == 1){
-                
-            }else{
-                if(udao.validar2() == 2){
-                    
-                }
-            }
+            JOptionPane.showMessageDialog(this,"OK");
+//            if(udao.validar2() == 1){
+//                
+//            }else{
+//                if(udao.validar2() == 2){
+//                    
+//                }
+//            }
         }else{
             JOptionPane.showMessageDialog(this,"El usuario o contraseña que ingreso son incorrectas");
         }

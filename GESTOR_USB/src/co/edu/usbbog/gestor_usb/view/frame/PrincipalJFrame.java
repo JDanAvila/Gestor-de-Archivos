@@ -19,7 +19,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         setTitle("Bienvenidos a nuestra Tienda");
         setResizable(false);
         setIconImage(getIconImage());
-        rol();
+        iniciar();      
     }
      private IniciarSesionJPanel iniciarSesion;
      private RegistrarseJPanel registrarse;

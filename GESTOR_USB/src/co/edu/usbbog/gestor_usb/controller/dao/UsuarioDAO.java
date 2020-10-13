@@ -26,18 +26,17 @@ public class UsuarioDAO implements UsuarioDTO {
         this.mySQL = new ConexionMySQL();
     }
 
-
     @Override
     public boolean create(Usuario usuario) {
         boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "INSERT INTO rol VALUES("
-                    + usuario.getId() + ","
-                    + usuario.getPassword() + ","
-                    + usuario.getNick() + ","
+            String query = "INSERT INTO usuario VALUES("
+                    + usuario.getId() + ",'"
+                    + usuario.getNombre() + "','"
+                    + usuario.getNick() + "','"
                     + usuario.getPassword()
-                    + ");";
+                    + "');";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -168,9 +167,10 @@ public class UsuarioDAO implements UsuarioDTO {
         this.mySQL.conectar();
         try {
             String query = "SELECT * FROM usuario WHERE "
-                    +"usuario =" + nick + "AND"
-                    +"password =" + pass
-                    + ";";
+                    +"nick ='" + nick + "' AND "
+                    +"`password` ='" + pass
+                    + "';";
+            System.out.println(query);
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();

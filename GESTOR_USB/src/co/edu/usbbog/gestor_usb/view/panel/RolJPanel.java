@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class RolJPanel extends javax.swing.JPanel {
     PrincipalJFrame principal;
-    RolDAO rolcito;
+    RolDAO rolcito = new RolDAO();
     /**
      * Creates new form RolJPanel
      */

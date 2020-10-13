@@ -32,9 +32,10 @@ public class RolDAO implements RolDTO {
         this.mySQL.conectar();
         try {
             String query = "INSERT INTO rol VALUES("
-                    + rol.getId() + ","
+                    + rol.getId() + ",'"
                     + rol.getCargo()
-                    + ");";
+                    + "');";
+            System.out.println(query);
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();

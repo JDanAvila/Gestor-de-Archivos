@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarseJPanel extends javax.swing.JPanel {
     PrincipalJFrame principal;
-    UsuarioDAO user;
+    UsuarioDAO user = new UsuarioDAO();
 
     
     /**
@@ -152,7 +152,7 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
         int id = Integer.parseInt(a);
         Usuario usuario= new Usuario(id,b,c,pass);
         if(user.create(usuario)){
-             JOptionPane.showMessageDialog(this,"Se creao el usuario"); 
+             JOptionPane.showMessageDialog(this,"Se creo el usuario"); 
         }else{
              JOptionPane.showMessageDialog(this,"No se pudo crear el usuario"); 
         }}catch(java.lang.NullPointerException e){
