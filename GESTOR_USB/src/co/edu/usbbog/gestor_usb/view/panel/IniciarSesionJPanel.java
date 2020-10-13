@@ -5,17 +5,22 @@
  */
 package co.edu.usbbog.gestor_usb.view.panel;
 
+import co.edu.usbbog.gestor_usb.view.frame.PrincipalJFrame;
+
 /**
  *
  * @author hp
  */
 public class IniciarSesionJPanel extends javax.swing.JPanel {
-
+    PrincipalJFrame principal; 
     /**
      * Creates new form IniciarSesionJPanel
      */
-    public IniciarSesionJPanel() {
-        initComponents();
+    
+
+    public IniciarSesionJPanel(PrincipalJFrame principal) {
+        this.principal = principal;
+         initComponents();
     }
 
     /**

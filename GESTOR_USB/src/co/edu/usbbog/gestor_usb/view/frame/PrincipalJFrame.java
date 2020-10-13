@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package co.edu.usbbog.gestor_usb.view.frame;
-
+import co.edu.usbbog.gestor_usb.view.panel.*;
 /**
  *
  * @author hp
@@ -15,9 +15,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
      * Creates new form PrincipalJFrame
      */
     public PrincipalJFrame() {
-        initComponents();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Bienvenidos a nuestra Tienda");
+        setResizable(false);
+        setIconImage(getIconImage());
+        iniciar();
     }
-
+     private IniciarSesionJPanel iniciarSesion;
+     private RegistrarseJPanel registrarse;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,11 +76,20 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PrincipalJFrame().setVisible(true);
             }
         });
+    }
+
+    private void iniciar() {
+        iniciarSesion = new IniciarSesionJPanel(this);
+        iniciarSesion.setVisible(true);
+        add(iniciarSesion);
+        pack();
+        setLocationRelativeTo(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
