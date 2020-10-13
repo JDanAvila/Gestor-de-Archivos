@@ -24,6 +24,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
      private IniciarSesionJPanel iniciarSesion;
      private RegistrarseJPanel registrarse;
      private RolJPanel rol;
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +98,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         rol = new RolJPanel(this);
         rol.setVisible(true);
         add(rol);
+        pack();
+        setLocationRelativeTo(null) ;
+    }
+    private void registrar(){
+        registrarse = new RegistrarseJPanel(this);
+        registrarse.setVisible(true);
+        add(registrarse);
         pack();
         setLocationRelativeTo(null) ;
     }
