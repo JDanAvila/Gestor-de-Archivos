@@ -6,7 +6,7 @@
 package co.edu.usbbog.gestor_usb.controller.dao;
 
 import co.edu.usbbog.gestor_usb.controller.persistence.ConexionMySQL;
-import co.edu.usbbog.gestor_usb.model.Rol;
+import co.edu.usbbog.gestor_usb.model.Auditoria;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,22 +18,23 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hp
  */
-public class RolDAO implements RolDTO {
-
+public class AuditoriaDAO implements AuditoriaDTO {
+    
     private final ConexionMySQL mySQL;
 
-    public RolDAO() {
+    public AuditoriaDAO() {
         this.mySQL = new ConexionMySQL();
     }
-
     @Override
-    public boolean create(Rol rol) {
-        boolean seHizo = false;
+    public boolean create(Auditoria auditoria) {
+    boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "INSERT INTO rol VALUES("
-                    + rol.getId() + ","
-                    + rol.getCargo()
+            String query = "INSERT INTO auditoria VALUES("
+                    + auditoria.getId() + ","
+                    + auditoria.getFecha() + ","
+                    + auditoria.getDescripcion() + ","
+                    + auditoria.getUsuario()
                     + ");";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
@@ -47,14 +48,16 @@ public class RolDAO implements RolDTO {
     }
 
     @Override
-    public boolean edit(Rol rol) {
-        boolean seHizo = false;
+    public boolean edit(Auditoria auditoria) {
+    boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "UPDATE rol SET"
-                    + "id =" + rol.getId() + ","
-                    + "cargo =" + rol.getCargo()
-                    + " WHERE id =" + rol.getId() + ";";
+            String query = "UPDATE auditoria SET"
+                    + "id =" + auditoria.getId() + ","
+                    + "fecha =" + auditoria.getFecha()+ ","
+                    + "descripcion =" + auditoria.getDescripcion()+ ","
+                    + "usuario =" + auditoria.getUsuario()
+                    + " WHERE id =" + auditoria.getId() + ";";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -67,11 +70,11 @@ public class RolDAO implements RolDTO {
     }
 
     @Override
-    public boolean remove(Rol rol) {
-        boolean seHizo = false;
+    public boolean remove(Auditoria auditoria) {
+    boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "DELETE FROM rol WHERE id = " + rol.getId() + ";";
+            String query = "DELETE FROM auditoria WHERE id = " + auditoria.getId() + ";";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -80,58 +83,58 @@ public class RolDAO implements RolDTO {
             seHizo = false;
         }
         this.mySQL.desconectar();
-        return seHizo;
+        return seHizo;   
     }
 
     @Override
     public void find(JTable tabla, int id) {
-        if (this.mySQL.conectar()) {
+    if (this.mySQL.conectar()) {
             Connection con = this.mySQL.getConnection();
             DefaultTableModel model;
-            String[] columnas = {"id", "cargo"};
+            String[] columnas = {"id", "fecha", "descripcion", "usuario"};
             model = new DefaultTableModel(null, columnas);
-            String sql = "SELECT * FROM rol WHERE id = " + id + ";";
-            String[] filas = new String[2];
+            String sql = "SELECT * FROM auditoria WHERE id = " + id + ";";
+            String[] filas = new String[4];
             Statement st = null;
             ResultSet rs = null;
             try {
                 st = con.createStatement();
                 rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 4; i++) {
                         filas[i] = rs.getString(i + 1);
                     }
                     model.addRow(filas);
                 }
                 tabla.setModel(model);
-            } catch (SQLException e) {
+            } catch (Exception e) {
+                
             }
-
         }
     }
 
     @Override
     public void findAll(JTable tabla) {
-        if (this.mySQL.conectar()) {
+    if (this.mySQL.conectar()) {
             Connection con = this.mySQL.getConnection();
             DefaultTableModel model;
-            String[] columnas = {"id", "cargo"};
+            String[] columnas = {"id", "fecha", "descripcion", "usuario"};
             model = new DefaultTableModel(null, columnas);
-            String sql = "SELECT * FROM rol;";
-            String[] filas = new String[2];
+            String sql = "SELECT * FROM auditoria;";
+            String[] filas = new String[4];
             Statement st = null;
             ResultSet rs = null;
             try {
                 st = con.createStatement();
                 rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 4; i++) {
                         filas[i] = rs.getString(i + 1);
                     }
                     model.addRow(filas);
                 }
                 tabla.setModel(model);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 
             }
         }
@@ -139,9 +142,9 @@ public class RolDAO implements RolDTO {
 
     @Override
     public int count() {
-        int count = 0;
+    int count = 0;
         try {
-            String query = "SELECT COUNT(id) FROM rol;";
+            String query = "SELECT COUNT(id) FROM auditoria;";
             Connection con = this.mySQL.getConnection();
             Statement stm = con.createStatement();
             ResultSet rs = (ResultSet) stm.executeQuery(query);
@@ -156,5 +159,5 @@ public class RolDAO implements RolDTO {
         }
         return count;
     }
-
+    
 }

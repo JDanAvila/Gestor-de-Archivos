@@ -6,7 +6,7 @@
 package co.edu.usbbog.gestor_usb.controller.dao;
 
 import co.edu.usbbog.gestor_usb.controller.persistence.ConexionMySQL;
-import co.edu.usbbog.gestor_usb.model.Rol;
+import co.edu.usbbog.gestor_usb.model.Documento;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,22 +18,30 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author hp
  */
-public class RolDAO implements RolDTO {
-
+public class DocumentoDAO implements DocumentoDTO {
+    
     private final ConexionMySQL mySQL;
 
-    public RolDAO() {
+    public DocumentoDAO() {
         this.mySQL = new ConexionMySQL();
     }
-
+    
     @Override
-    public boolean create(Rol rol) {
+    public boolean create(Documento doc) {
         boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "INSERT INTO rol VALUES("
-                    + rol.getId() + ","
-                    + rol.getCargo()
+            String query = "INSERT INTO documento VALUES("
+                    + doc.getId() + ","
+                    + doc.getName() + ","
+                    + doc.getDescripcion() + ","
+                    + doc.getFechaCreate() + ","
+                    + doc.getFechaEdit() + ","
+                    + doc.getAutor()+ ","
+                    + doc.getSize() + ","
+                    + doc.getType() + ","
+                    + doc.getArchivo() + ","
+                    + doc.getCarpeta()                   
                     + ");";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
@@ -47,14 +55,22 @@ public class RolDAO implements RolDTO {
     }
 
     @Override
-    public boolean edit(Rol rol) {
+    public boolean edit(Documento doc) {
         boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "UPDATE rol SET"
-                    + "id =" + rol.getId() + ","
-                    + "cargo =" + rol.getCargo()
-                    + " WHERE id =" + rol.getId() + ";";
+            String query = "UPDATE documento SET"
+                    + "id =" + doc.getId() + ","
+                    + "name =" + doc.getName() + ","
+                    + "descripcion ="+ doc.getDescripcion() + ","
+                    + "fecha_create ="+ doc.getFechaCreate()+ ","
+                    + "fecha_edit ="+ doc.getFechaEdit() + ","
+                    + "autor ="+ doc.getAutor() + ","
+                    + "size ="+ doc.getSize() + ","
+                    + "type ="+ doc.getType() + ","
+                    + "archivo ="+ doc.getArchivo() + ","
+                    + "carpeta ="+ doc.getCarpeta() + "," 
+                    + " WHERE id =" + doc.getId() + ";";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -67,11 +83,11 @@ public class RolDAO implements RolDTO {
     }
 
     @Override
-    public boolean remove(Rol rol) {
+    public boolean remove(Documento doc) {
         boolean seHizo = false;
         this.mySQL.conectar();
         try {
-            String query = "DELETE FROM rol WHERE id = " + rol.getId() + ";";
+            String query = "DELETE FROM documento WHERE id = " + doc.getId() + ";";
             Statement stmt = this.mySQL.getConnection().createStatement();
             stmt.executeUpdate(query);
             stmt.close();
@@ -88,17 +104,17 @@ public class RolDAO implements RolDTO {
         if (this.mySQL.conectar()) {
             Connection con = this.mySQL.getConnection();
             DefaultTableModel model;
-            String[] columnas = {"id", "cargo"};
+            String[] columnas = {"id", "name", "descripcion", "fecha_create", "fecha_edit", "autor", "size", "type", "archivo", "carpeta"};
             model = new DefaultTableModel(null, columnas);
-            String sql = "SELECT * FROM rol WHERE id = " + id + ";";
-            String[] filas = new String[2];
+            String sql = "SELECT * FROM documento WHERE id = " + id + ";";
+            String[] filas = new String[10];
             Statement st = null;
             ResultSet rs = null;
             try {
                 st = con.createStatement();
                 rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 10; i++) {
                         filas[i] = rs.getString(i + 1);
                     }
                     model.addRow(filas);
@@ -106,7 +122,6 @@ public class RolDAO implements RolDTO {
                 tabla.setModel(model);
             } catch (SQLException e) {
             }
-
         }
     }
 
@@ -115,24 +130,23 @@ public class RolDAO implements RolDTO {
         if (this.mySQL.conectar()) {
             Connection con = this.mySQL.getConnection();
             DefaultTableModel model;
-            String[] columnas = {"id", "cargo"};
+            String[] columnas = {"id", "name", "descripcion", "fecha_create", "fecha_edit", "autor", "size", "type", "archivo", "carpeta"};
             model = new DefaultTableModel(null, columnas);
-            String sql = "SELECT * FROM rol;";
-            String[] filas = new String[2];
+            String sql = "SELECT * FROM documento;";
+            String[] filas = new String[10];
             Statement st = null;
             ResultSet rs = null;
             try {
                 st = con.createStatement();
                 rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 10; i++) {
                         filas[i] = rs.getString(i + 1);
                     }
                     model.addRow(filas);
                 }
                 tabla.setModel(model);
             } catch (SQLException e) {
-                
             }
         }
     }
@@ -141,7 +155,7 @@ public class RolDAO implements RolDTO {
     public int count() {
         int count = 0;
         try {
-            String query = "SELECT COUNT(id) FROM rol;";
+            String query = "SELECT COUNT(id) FROM documento;";
             Connection con = this.mySQL.getConnection();
             Statement stm = con.createStatement();
             ResultSet rs = (ResultSet) stm.executeQuery(query);
@@ -156,5 +170,5 @@ public class RolDAO implements RolDTO {
         }
         return count;
     }
-
+    
 }

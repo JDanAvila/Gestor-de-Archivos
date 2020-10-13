@@ -5,17 +5,17 @@
  */
 package co.edu.usbbog.gestor_usb.controller.dao;
 
-import co.edu.usbbog.gestor_usb.model.Rol;
+import co.edu.usbbog.gestor_usb.model.Documento;
 import javax.swing.JTable;
 
 /**
  *
  * @author hp
  */
-public interface RolDTO {
-    public boolean create(Rol rol);
-    public boolean edit(Rol rol);
-    public boolean remove(Rol rol);
+public interface DocumentoDTO {
+    public boolean create(Documento doc);
+    public boolean edit(Documento doc);
+    public boolean remove(Documento doc);
     public void find(JTable tabla, int id);
     public void findAll(JTable tabla);
     public int count();
