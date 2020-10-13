@@ -5,16 +5,25 @@
  */
 package co.edu.usbbog.gestor_usb.view.panel;
 
+import co.edu.usbbog.gestor_usb.controller.dao.UsuarioDAO;
+import co.edu.usbbog.gestor_usb.model.Usuario;
+import co.edu.usbbog.gestor_usb.view.frame.PrincipalJFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hp
  */
 public class RegistrarseJPanel extends javax.swing.JPanel {
+    PrincipalJFrame principal;
+    UsuarioDAO user;
 
+    
     /**
      * Creates new form RegistrarseJPanel
      */
-    public RegistrarseJPanel() {
+    public RegistrarseJPanel(PrincipalJFrame principal) {
+        this.principal=principal;
         initComponents();
     }
 
@@ -36,6 +45,7 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
         jTextField_name = new javax.swing.JTextField();
         jTextField_nick = new javax.swing.JTextField();
         jPasswordField_password = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Registro");
@@ -47,6 +57,13 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
         jLabel4.setText("Nick");
 
         jLabel5.setText("Password");
+
+        jButton1.setText("Registrarse");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -75,6 +92,10 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
                                     .addComponent(jTextField_name)
                                     .addComponent(jTextField_nick, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))))))
                 .addContainerGap(112, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(269, 269, 269))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,12 +118,19 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jPasswordField_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    registrarse();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -113,4 +141,24 @@ public class RegistrarseJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField_name;
     private javax.swing.JTextField jTextField_nick;
     // End of variables declaration//GEN-END:variables
+
+    private void registrarse() {
+        try{
+        char clave[]=jPasswordField_password.getPassword();
+        String pass=new String (clave);
+        String a = jTextField_id.getText();
+        String b=jTextField_name.getText();
+        String c = jTextField_nick.getText();
+        int id = Integer.parseInt(a);
+        Usuario usuario= new Usuario(id,b,c,pass);
+        if(user.create(usuario)){
+             JOptionPane.showMessageDialog(this,"Se creao el usuario"); 
+        }else{
+             JOptionPane.showMessageDialog(this,"No se pudo crear el usuario"); 
+        }}catch(java.lang.NullPointerException e){
+             JOptionPane.showMessageDialog(this,"No se pudo crear el usuario"); 
+        }
+        
+       
+    }
 }
