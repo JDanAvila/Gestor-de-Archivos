@@ -10,5 +10,7 @@ package co.edu.usbbog.gestor_usb.view;
  * @author hp
  */
 public class grd {
-    
+    public static void main(String[] args) {
+        
+    }
 }
