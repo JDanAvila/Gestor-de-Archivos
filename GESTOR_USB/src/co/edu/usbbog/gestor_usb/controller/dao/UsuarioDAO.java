@@ -161,6 +161,46 @@ public class UsuarioDAO implements UsuarioDTO {
         }
         return count;
     }
+
+    @Override
+    public boolean validar(String nick, String pass) {
+        boolean seHizo = false;
+        this.mySQL.conectar();
+        try {
+            String query = "SELECT * FROM usuario WHERE "
+                    +"usuario =" + nick + "AND"
+                    +"password =" + pass
+                    + ";";
+            Statement stmt = this.mySQL.getConnection().createStatement();
+            stmt.executeUpdate(query);
+            stmt.close();
+            seHizo = true;
+        } catch (SQLException e) {
+            seHizo = false;
+        }
+        this.mySQL.desconectar();
+        return seHizo;
+    }
+
+    @Override
+    public int validar2() {
+        int count = 0;
+        try {
+            String query = "SELECT * FROM usuario JOIN usuario_rol ON usuario_rol.usuario = usuario_rol.rol;";
+            Connection con = this.mySQL.getConnection();
+            Statement stm = con.createStatement();
+            ResultSet rs = (ResultSet) stm.executeQuery(query);
+            while (rs.next()) {
+                count = rs.getInt(6);
+            }
+            rs.close();
+            stm.close();
+            con.close();
+        } catch (SQLException e) {
+            return count;
+        }
+        return count;       
+    }
     }
     
 

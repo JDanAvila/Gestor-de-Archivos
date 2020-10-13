@@ -5,7 +5,9 @@
  */
 package co.edu.usbbog.gestor_usb.view.panel;
 
+import co.edu.usbbog.gestor_usb.controller.dao.UsuarioDAO;
 import co.edu.usbbog.gestor_usb.view.frame.PrincipalJFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +15,8 @@ import co.edu.usbbog.gestor_usb.view.frame.PrincipalJFrame;
  */
 public class IniciarSesionJPanel extends javax.swing.JPanel {
     PrincipalJFrame principal; 
+    
+    UsuarioDAO udao = new UsuarioDAO();
     /**
      * Creates new form IniciarSesionJPanel
      */
@@ -34,19 +38,83 @@ public class IniciarSesionJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabel_IniciarSesion = new javax.swing.JLabel();
+        jLabel_Usuario = new javax.swing.JLabel();
+        jLabel_Pass = new javax.swing.JLabel();
+        jTextField_Usuario = new javax.swing.JTextField();
+        jPasswordField_Pass = new javax.swing.JPasswordField();
+        jButton_IniciarSesion = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel_IniciarSesion.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        jLabel_IniciarSesion.setText("Iniciar Sesion");
+        add(jLabel_IniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+
+        jLabel_Usuario.setText("Usuario:");
+        add(jLabel_Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+
+        jLabel_Pass.setText("Password:");
+        add(jLabel_Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        add(jTextField_Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 140, -1));
+        add(jPasswordField_Pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 140, -1));
+
+        jButton_IniciarSesion.setText("Iniciar Sesión");
+        jButton_IniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_IniciarSesionActionPerformed(evt);
+            }
+        });
+        add(jButton_IniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_IniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IniciarSesionActionPerformed
+        // TODO add your handling code here:
+        iniciarSesion();
+    }//GEN-LAST:event_jButton_IniciarSesionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_IniciarSesion;
+    private javax.swing.JLabel jLabel_IniciarSesion;
+    private javax.swing.JLabel jLabel_Pass;
+    private javax.swing.JLabel jLabel_Usuario;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField_Pass;
+    private javax.swing.JTextField jTextField_Usuario;
     // End of variables declaration//GEN-END:variables
+
+    private void iniciarSesion() {
+        char clave[] = jPasswordField_Pass.getPassword();
+        String pass = new String (clave);
+        String user = jTextField_Usuario.getText();
+        if(udao.validar(user, pass)){
+            if(udao.validar2() == 1){
+                
+            }else{
+                if(udao.validar2() == 2){
+                    
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"El usuario o contraseña que ingreso son incorrectas");
+        }
+    }
+    
+    
+    
 }
